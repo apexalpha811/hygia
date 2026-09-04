@@ -1811,6 +1811,49 @@ a {
   resize: vertical;
 }
 
+/* Device Advisory Modal (Mobile/Tablet Alert) */
+.device-advisory-backdrop {
+  z-index: 10001;
+}
+
+.device-advisory-window {
+  max-width: 520px;
+  text-align: center;
+  border-color: var(--accent-purple-light);
+  box-shadow: 0 0 50px rgba(80, 0, 234, 0.45);
+  padding: 3rem 2.2rem;
+}
+
+.advisory-icon-wrap {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.4rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--accent-purple-light);
+  color: var(--accent-purple-light);
+  box-shadow: 0 0 20px var(--accent-glow);
+  border-radius: 50%;
+}
+
+.advisory-icon-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+
+.advisory-text {
+  font-size: 0.96rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.65;
+  margin-bottom: 2.2rem;
+}
+
+.advisory-actions {
+  display: flex;
+  justify-content: center;
+}
+
 /* ==========================================================================
    RESPONSIVE DESIGN (TABLET & MOBILE)
    ========================================================================== */

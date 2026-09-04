@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCitySearch();
   initFaqAccordion();
   initModals();
+  initDeviceAdvisory();
 });
 
 /* --------------------------------------------------------------------------
@@ -350,4 +351,43 @@ function closeAllModals() {
     modal.classList.remove('active');
   });
   document.body.style.overflow = 'auto';
+}
+
+/* --------------------------------------------------------------------------
+   8. Mobile / Tablet Desktop Viewing Advisory
+   -------------------------------------------------------------------------- */
+function initDeviceAdvisory() {
+  const advisoryModal = document.getElementById('device-advisory-modal');
+  const ignoreBtn = document.getElementById('btn-advisory-ignore');
+  const closeX = document.getElementById('advisory-close-x');
+
+  if (!advisoryModal) return;
+
+  const isSmallDevice = () => {
+    const isTouchUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSmallViewport = window.innerWidth <= 1024;
+    return isSmallViewport || isTouchUserAgent;
+  };
+
+  const isDismissed = sessionStorage.getItem('hygia_advisory_dismissed');
+
+  if (isSmallDevice() && !isDismissed) {
+    setTimeout(() => {
+      openModal(advisoryModal);
+    }, 400);
+  }
+
+  window.addEventListener('resize', () => {
+    if (isSmallDevice() && !sessionStorage.getItem('hygia_advisory_dismissed')) {
+      openModal(advisoryModal);
+    }
+  });
+
+  function dismiss() {
+    sessionStorage.setItem('hygia_advisory_dismissed', 'true');
+    closeAllModals();
+  }
+
+  if (ignoreBtn) ignoreBtn.addEventListener('click', dismiss);
+  if (closeX) closeX.addEventListener('click', dismiss);
 }
