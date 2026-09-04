@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temp
+*.log
+scratch/
+.system_generated/
+
+# Reference notes (optional - can be kept or ignored)
+# design-cues.md
+# *_scraped.md

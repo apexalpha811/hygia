@@ -1,0 +1,82 @@
+/* ==========================================================================
+   HYGIA COMMERCIAL JANITORIAL - TYPOGRAPHY & FONT DEFINITIONS
+   Matches design-cues.md specifications:
+   - Headings/Titles: Ethnocentric (Ethnocentric.ttf / hygia Font for title.ttf)
+   - Body copy: Montserrat (Weight ~600, ~17px)
+   - Secondary/Accents: Orbitron
+   ========================================================================== */
+
+/* Web font fallbacks via Google Fonts for enhanced cross-device compatibility */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+/* LOCAL ETHNOCENTRIC (Primary Title & Brand Font) */
+@font-face {
+  font-family: 'Ethnocentric';
+  src: url('../fonts/Ethnocentric/Ethnocentric-Regular.ttf') format('truetype'),
+       url('../fonts/Ethnocentric/Ethnocentric.ttf') format('truetype'),
+       url('../fonts/Ethnocentric/hygia%20Font%20for%20title.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ethnocentric';
+  src: url('../fonts/Ethnocentric/Ethnocentric-Bold.ttf') format('truetype'),
+       url('../fonts/Ethnocentric/Ethnocentric%20Bold.ttf') format('truetype'),
+       url('../fonts/Ethnocentric/hygia%20Font%20for%20title.ttf') format('truetype');
+  font-weight: 600;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* LOCAL MONTSERRAT */
+@font-face {
+  font-family: 'Montserrat Local';
+  src: url('../fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Local';
+  src: url('../fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Local';
+  src: url('../fonts/Montserrat/static/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat Local';
+  src: url('../fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* LOCAL ORBITRON */
+@font-face {
+  font-family: 'Orbitron Local';
+  src: url('../fonts/Orbitron/Orbitron-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron Local';
+  src: url('../fonts/Orbitron/Orbitron-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
