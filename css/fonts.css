@@ -1,7 +1,8 @@
 /* ==========================================================================
    HYGIA COMMERCIAL JANITORIAL - TYPOGRAPHY & FONT DEFINITIONS
    Matches design-cues.md specifications:
-   - Headings/Titles: Ethnocentric (Ethnocentric.ttf / hygia Font for title.ttf)
+   - Company Name: Ethnocentric (exclusively for 'HYGIA')
+   - Headings/Titles: Orbitron (All section headings and titles)
    - Body copy: Montserrat (Weight ~600, ~17px)
    - Secondary/Accents: Orbitron
    ========================================================================== */
@@ -9,7 +10,7 @@
 /* Web font fallbacks via Google Fonts for enhanced cross-device compatibility */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
-/* LOCAL ETHNOCENTRIC (Primary Title & Brand Font) */
+/* LOCAL ETHNOCENTRIC (Strictly for Company Name "HYGIA") */
 @font-face {
   font-family: 'Ethnocentric';
   src: url('../fonts/Ethnocentric/Ethnocentric-Regular.ttf') format('truetype'),

@@ -6,7 +6,8 @@
    - Text on Light: #04030A
    - Button Border/Text on Light: #0784b5
    - Outline buttons ONLY (no filled buttons)
-   - Headings: Ethnocentric, ALL CAPS, ~40px, weight 600, cinematic tracking
+   - Company Name: Ethnocentric (strictly for 'HYGIA')
+   - Headings & Titles: Orbitron, ALL CAPS, ~40px, weight 600-700
    - Body: Montserrat, ~17px, weight 600
    - Accent/Monospace/Metrics: Orbitron
    - Alternating Dark, Accent Block, and Light sections
@@ -41,7 +42,8 @@
   --border-accent: #0784b5;
 
   /* Typography */
-  --font-title: 'Ethnocentric', 'Orbitron', 'Montserrat', sans-serif;
+  --font-brand: 'Ethnocentric', sans-serif;
+  --font-title: 'Orbitron', 'Orbitron Local', -apple-system, sans-serif;
   --font-body: 'Montserrat', 'Montserrat Local', -apple-system, sans-serif;
   --font-accent: 'Orbitron', 'Orbitron Local', monospace;
 
@@ -119,9 +121,9 @@ a {
   transition: var(--transition-fast);
 }
 
-/* THE HYGIA LOGO & TITLE SPECIAL STYLING */
+/* THE HYGIA LOGO & TITLE SPECIAL STYLING (EXCLUSIVELY ETHNOCENTRIC) */
 .hygia-brand {
-  font-family: 'Ethnocentric', sans-serif !important;
+  font-family: var(--font-brand) !important;
   text-transform: uppercase;
   letter-spacing: 0.22em;
   font-weight: 700;
@@ -566,7 +568,7 @@ a {
 }
 
 .hero-brand-display {
-  font-family: 'Ethnocentric', sans-serif !important;
+  font-family: var(--font-brand) !important;
   font-size: clamp(3.2rem, 8vw, 6.4rem);
   letter-spacing: 0.22em;
   color: #FFFFFF;

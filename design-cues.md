@@ -1,9 +1,10 @@
 # Hygia Design Cues (pulled from anation.media)
 
 ## Fonts
-- **Title / heading font:** Ethnocentric — matches `fonts for hygia/Ethnocentric/` (use `Ethnocentric.ttf` regular, `Ethnocentric Bold.ttf` for emphasis)
+- **Company Name font:** Ethnocentric — strictly and ONLY used for the company name, "HYGIA" (matches `fonts for hygia/Ethnocentric/`)
+- **Title / heading font:** Orbitron — all headings, titles, subheads, and section headers use Orbitron
 - **Body font:** Montserrat — matches `fonts for hygia/Montserrat/` (use `Montserrat-Regular.ttf`, `Montserrat-Medium.ttf`, weight 600 for body copy per source site)
-- **Secondary/accent font (site also uses this for buttons and some subheads):** Orbitron — already in `fonts for hygia/Orbitron/`, optional accent use only
+- **Secondary/accent font (buttons, metrics, badges):** Orbitron — already in `fonts for hygia/Orbitron/`
 
 ## Colors
 - **Background (primary):** `#000000` — pure black
@@ -16,8 +17,9 @@
 No pink anywhere in the palette. Do not use pink.
 
 ## Usage Notes
-- Headings (h2 equivalent): Ethnocentric, ~40px, weight 600, white on black
-- Body paragraphs: Montserrat, ~17px, weight 600, white on black
+- Company Name ("HYGIA"): Ethnocentric, uppercase, wide tracking (0.22em)
+- Headings (h1, h2, h3, h4 equivalent): Orbitron, ~40px (for h2), weight 600–700, ALL CAPS, white on dark
+- Body paragraphs: Montserrat, ~17px, weight 600
 - Accent/button/highlight color: `#0784b5` / `#0ca0dc`
 - Overall aesthetic: dark, high-contrast, bold sans-serif futuristic branding
 
