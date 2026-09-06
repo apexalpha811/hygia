@@ -1,26 +1,24 @@
 /* ==========================================================================
    HYGIA COMMERCIAL FACILITY SERVICES - MASTER STYLESHEET
-   Adheres strictly to design-cues.md:
    - Primary Background: #000000 (pure black)
-   - Accent Block: #3E00DB / #5000EA (electric purple/indigo)
+   - Accent Block: #0784b5 / #0ca0dc (ocean cyan/cerulean)
    - Text on Dark: #FFFFFF
    - Text on Light: #04030A
-   - Button Border/Text on Light: #1D00C6
+   - Button Border/Text on Light: #0784b5
    - Outline buttons ONLY (no filled buttons)
    - Headings: Ethnocentric, ALL CAPS, ~40px, weight 600, cinematic tracking
    - Body: Montserrat, ~17px, weight 600
    - Accent/Monospace/Metrics: Orbitron
-   - NO PINK anywhere in palette.
    - Alternating Dark, Accent Block, and Light sections
    ========================================================================== */
 
 @import url('./fonts.css');
 
 :root {
-  /* Color Palette per design-cues.md */
+  /* Color Palette */
   --bg-primary: #000000;
-  --bg-accent-block: #3E00DB;
-  --bg-accent-alt: #5000EA;
+  --bg-accent-block: #0784b5;
+  --bg-accent-alt: #0ca0dc;
   --bg-light: #F6F8FC;
   --bg-light-card: #FFFFFF;
   --bg-dark-card: #0A0A10;
@@ -31,16 +29,16 @@
   --text-light: #04030A;
   --text-light-muted: rgba(4, 3, 10, 0.72);
 
-  --accent-purple: #3E00DB;
-  --accent-purple-light: #5000EA;
-  --accent-indigo: #1D00C6;
-  --accent-glow: rgba(62, 0, 219, 0.45);
-  --accent-electric: #4d00ff;
+  --accent-purple: #0784b5;
+  --accent-purple-light: #0ca0dc;
+  --accent-indigo: #0784b5;
+  --accent-glow: rgba(7, 132, 181, 0.45);
+  --accent-electric: #0784b5;
 
   --border-dark: rgba(255, 255, 255, 0.16);
   --border-dark-strong: rgba(255, 255, 255, 0.35);
   --border-light: rgba(4, 3, 10, 0.12);
-  --border-accent: #3E00DB;
+  --border-accent: #0784b5;
 
   /* Typography */
   --font-title: 'Ethnocentric', 'Orbitron', 'Montserrat', sans-serif;
@@ -154,7 +152,7 @@ a {
    BUTTONS: STRICT OUTLINE ONLY (PER DESIGN CUES)
    No filled buttons allowed.
    - Dark sections: white border/text
-   - Light sections: #1D00C6 border/text
+   - Light sections: #0784b5 border/text
    ========================================================================== */
 .btn-outline {
   display: inline-flex;
@@ -189,7 +187,7 @@ a {
   transform: translateY(-2px);
 }
 
-/* Button with Electric Indigo Glow (on Dark or Accent) */
+/* Button with Ocean Blue Glow (on Dark or Accent) */
 .btn-outline-electric {
   border: 2px solid var(--accent-purple-light);
   color: #FFFFFF;
@@ -197,13 +195,13 @@ a {
 }
 
 .btn-outline-electric:hover {
-  background: rgba(80, 0, 234, 0.16) !important;
+  background: rgba(12, 160, 220, 0.16) !important;
   border-color: #FFFFFF;
-  box-shadow: 0 0 30px rgba(80, 0, 234, 0.8);
+  box-shadow: 0 0 30px rgba(12, 160, 220, 0.8);
   transform: translateY(-2px);
 }
 
-/* Button on Light Background (Strict #1D00C6 per design-cues) */
+/* Button on Light Background */
 .btn-outline-indigo {
   border: 2px solid var(--accent-indigo);
   color: var(--accent-indigo);
@@ -211,9 +209,9 @@ a {
 }
 
 .btn-outline-indigo:hover {
-  background: rgba(29, 0, 198, 0.06) !important;
+  background: rgba(7, 132, 181, 0.08) !important;
   border-color: var(--accent-purple);
-  box-shadow: 0 4px 20px rgba(29, 0, 198, 0.22);
+  box-shadow: 0 4px 20px rgba(7, 132, 181, 0.25);
   transform: translateY(-2px);
 }
 
@@ -253,7 +251,7 @@ a {
 
 .site-header.scrolled {
   background: rgba(0, 0, 0, 0.96);
-  border-bottom-color: rgba(62, 0, 219, 0.35);
+  border-bottom-color: rgba(7, 132, 181, 0.35);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
 }
 
@@ -392,13 +390,13 @@ a {
   color: var(--text-dark-muted);
 }
 
-/* FULL ACCENT BLOCK SECTION (#3E00DB per design-cues.md) */
+/* FULL ACCENT BLOCK SECTION (#0784b5) */
 .section-accent-block {
   background-color: var(--bg-accent-block);
   background-image: 
-    radial-gradient(circle at 15% 20%, rgba(80, 0, 234, 0.45) 0%, transparent 50%),
-    radial-gradient(circle at 85% 80%, rgba(29, 0, 198, 0.5) 0%, transparent 50%),
-    linear-gradient(135deg, #3E00DB 0%, #2f00a8 100%);
+    radial-gradient(circle at 15% 20%, rgba(12, 160, 220, 0.45) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(7, 132, 181, 0.5) 0%, transparent 50%),
+    linear-gradient(135deg, #0784b5 0%, #055c7f 100%);
   color: #FFFFFF;
   padding: 7.5rem 0;
   position: relative;
@@ -415,7 +413,7 @@ a {
   color: #FFFFFF;
 }
 
-/* LIGHT SECTION (White / #F6F8FC with #04030A text per design-cues.md) */
+/* LIGHT SECTION (White / #F6F8FC with #04030A text) */
 .section-light {
   background-color: var(--bg-light);
   color: var(--text-light);
@@ -453,7 +451,7 @@ a {
 }
 
 .eyebrow-dark {
-  background: rgba(62, 0, 219, 0.2);
+  background: rgba(7, 132, 181, 0.2);
   border: 1px solid var(--accent-purple);
   color: #FFFFFF;
 }
@@ -465,7 +463,7 @@ a {
 }
 
 .eyebrow-light {
-  background: rgba(29, 0, 198, 0.06);
+  background: rgba(7, 132, 181, 0.08);
   border: 1px solid var(--accent-indigo);
   color: var(--accent-indigo);
 }
@@ -520,7 +518,7 @@ a {
   height: 100%;
   background: 
     linear-gradient(180deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.95) 90%, #000000 100%),
-    radial-gradient(circle at 75% 35%, rgba(62, 0, 219, 0.32) 0%, transparent 60%);
+    radial-gradient(circle at 75% 35%, rgba(7, 132, 181, 0.32) 0%, transparent 60%);
   z-index: 2;
 }
 
@@ -554,7 +552,7 @@ a {
   text-transform: uppercase;
   padding: 0.45rem 1.25rem;
   border: 1px solid var(--accent-purple-light);
-  background: rgba(62, 0, 219, 0.28);
+  background: rgba(7, 132, 181, 0.28);
   box-shadow: 0 0 20px var(--accent-glow);
   margin-bottom: 2rem;
 }
@@ -575,7 +573,7 @@ a {
   text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: block;
-  text-shadow: 0 0 40px rgba(62, 0, 219, 0.7);
+  text-shadow: 0 0 40px rgba(7, 132, 181, 0.7);
   line-height: 1.05;
 }
 
@@ -693,7 +691,7 @@ a {
 }
 
 /* ==========================================================================
-   ACCENT BLOCK 1: 4-STEP OPERATIONAL STANDARD (#3E00DB)
+   ACCENT BLOCK 1: 4-STEP OPERATIONAL STANDARD (#0784b5)
    ========================================================================== */
 .steps-grid {
   display: grid;
@@ -786,7 +784,7 @@ a {
   background: transparent !important;
   border-color: var(--accent-indigo);
   color: var(--accent-indigo);
-  box-shadow: 0 0 12px rgba(29, 0, 198, 0.2);
+  box-shadow: 0 0 12px rgba(7, 132, 181, 0.25);
   font-weight: 700;
 }
 
@@ -812,7 +810,7 @@ a {
 .service-card:hover {
   transform: translateY(-6px);
   border-color: var(--accent-indigo);
-  box-shadow: 0 12px 35px rgba(29, 0, 198, 0.12);
+  box-shadow: 0 12px 35px rgba(7, 132, 181, 0.16);
 }
 
 .service-icon-wrap {
@@ -1004,7 +1002,7 @@ a {
 }
 
 /* ==========================================================================
-   ACCENT BLOCK 2: INTERACTIVE SOW & ESTIMATE CALCULATOR (#3E00DB)
+   ACCENT BLOCK 2: INTERACTIVE SOW & ESTIMATE CALCULATOR (#0784b5)
    ========================================================================== */
 .calculator-box {
   background: rgba(0, 0, 0, 0.4);
@@ -1150,7 +1148,7 @@ a {
 }
 
 .estimate-display-box {
-  background: rgba(62, 0, 219, 0.35);
+  background: rgba(7, 132, 181, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 1.5rem;
   text-align: center;
@@ -1235,7 +1233,7 @@ a {
   background: transparent !important;
   border-color: var(--accent-indigo);
   color: var(--accent-indigo);
-  box-shadow: 0 0 15px rgba(29, 0, 198, 0.25);
+  box-shadow: 0 0 15px rgba(7, 132, 181, 0.28);
   font-weight: 700;
 }
 
@@ -1270,7 +1268,7 @@ a {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  border-bottom: 1.5px solid rgba(29, 0, 198, 0.15);
+  border-bottom: 1.5px solid rgba(7, 132, 181, 0.2);
   padding-bottom: 0.8rem;
 }
 
@@ -1561,7 +1559,7 @@ a {
 }
 
 /* ==========================================================================
-   ACCENT BLOCK 3: FINAL CALL TO ACTION (#3E00DB)
+   ACCENT BLOCK 3: FINAL CALL TO ACTION (#0784b5)
    ========================================================================== */
 .cta-banner {
   text-align: center;
@@ -1820,7 +1818,7 @@ a {
   max-width: 520px;
   text-align: center;
   border-color: var(--accent-purple-light);
-  box-shadow: 0 0 50px rgba(80, 0, 234, 0.45);
+  box-shadow: 0 0 50px rgba(7, 132, 181, 0.45);
   padding: 3rem 2.2rem;
 }
 

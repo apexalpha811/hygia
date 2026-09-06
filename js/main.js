@@ -40,7 +40,7 @@ function initHeader() {
         navMenu.style.right = '0';
         navMenu.style.background = '#000000';
         navMenu.style.padding = '2rem';
-        navMenu.style.borderBottom = '1px solid #3E00DB';
+        navMenu.style.borderBottom = '1px solid #0784b5';
       }
     });
   }
@@ -201,7 +201,7 @@ function initCitySearch() {
       if (cities.includes(query) || countyName.toLowerCase().includes(query)) {
         box.style.opacity = '1';
         box.style.borderColor = 'var(--accent-purple-light)';
-        box.style.boxShadow = '0 0 20px rgba(80, 0, 234, 0.4)';
+        box.style.boxShadow = '0 0 20px rgba(7, 132, 181, 0.4)';
         matchFound = true;
         matchedCountyName = countyName;
       } else {
