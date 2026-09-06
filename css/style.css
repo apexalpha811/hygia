@@ -1451,57 +1451,6 @@ a {
   margin-bottom: 0.4rem;
 }
 
-/* ==========================================================================
-   TESTIMONIALS & PROOF
-   ========================================================================== */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.2rem;
-}
-
-.testimonial-card {
-  background: var(--bg-dark-card);
-  border: 1px solid var(--border-dark);
-  padding: 2.8rem 2.2rem;
-  border-radius: 2px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.stars-row {
-  color: #FFB800;
-  margin-bottom: 1.4rem;
-  font-size: 1.1rem;
-}
-
-.testimonial-quote {
-  font-size: 0.98rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2rem;
-  font-style: italic;
-}
-
-.testimonial-author {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1.2rem;
-}
-
-.author-name {
-  font-family: var(--font-accent);
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  color: #FFFFFF;
-  margin-bottom: 0.2rem;
-  text-transform: uppercase;
-}
-
-.author-role {
-  font-size: 0.8rem;
-  color: var(--accent-purple-light);
-}
 
 /* ==========================================================================
    LIGHT SECTION 3: FAQ ACCORDION (#F6F8FC with #04030A text)
@@ -1865,7 +1814,7 @@ a {
   .nav-menu {
     gap: 1.8rem;
   }
-  .steps-grid, .services-grid, .tiers-container, .matrix-grid, .testimonials-grid {
+  .steps-grid, .services-grid, .tiers-container, .matrix-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .counties-grid {
@@ -1892,7 +1841,7 @@ a {
   .hero-metrics-bar {
     grid-template-columns: repeat(2, 1fr);
   }
-  .steps-grid, .services-grid, .tiers-container, .matrix-grid, .testimonials-grid, .checklist-columns, .sectors-showcase {
+  .steps-grid, .services-grid, .tiers-container, .matrix-grid, .checklist-columns, .sectors-showcase {
     grid-template-columns: 1fr;
   }
   .counties-grid {
