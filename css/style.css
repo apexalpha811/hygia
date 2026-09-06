@@ -6,8 +6,8 @@
    - Text on Light: #04030A
    - Button Border/Text on Light: #0784b5
    - Outline buttons ONLY (no filled buttons)
-   - Company Name: Proxima Nova (for 'HYGIA')
-   - Headings & Titles: Orbitron, ALL CAPS, ~40px, weight 600-700
+   - Company Name: Ethnocentric (strictly for 'HYGIA')
+   - Headings & Titles: Proxima Nova, ALL CAPS, ~40px, weight 700-800
    - Body: Montserrat, ~17px, weight 600
    - Accent/Monospace/Metrics: Orbitron
    - Alternating Dark, Accent Block, and Light sections
@@ -42,8 +42,8 @@
   --border-accent: #0784b5;
 
   /* Typography */
-  --font-brand: 'Proxima Nova', 'Montserrat', -apple-system, sans-serif;
-  --font-title: 'Orbitron', 'Orbitron Local', -apple-system, sans-serif;
+  --font-brand: 'Ethnocentric', sans-serif;
+  --font-title: 'Proxima Nova', 'Montserrat', -apple-system, sans-serif;
   --font-body: 'Montserrat', 'Montserrat Local', -apple-system, sans-serif;
   --font-accent: 'Orbitron', 'Orbitron Local', monospace;
 
@@ -84,8 +84,8 @@ body {
 h1, h2, h3, h4, .hygia-title, .section-heading, .brand-font {
   font-family: var(--font-title);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-weight: 800;
   line-height: 1.25;
 }
 
@@ -121,12 +121,12 @@ a {
   transition: var(--transition-fast);
 }
 
-/* THE HYGIA LOGO & TITLE SPECIAL STYLING (PROXIMA NOVA) */
+/* THE HYGIA LOGO & TITLE SPECIAL STYLING (EXCLUSIVELY ETHNOCENTRIC) */
 .hygia-brand {
   font-family: var(--font-brand) !important;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-weight: 800;
+  letter-spacing: 0.22em;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -570,9 +570,8 @@ a {
 .hero-brand-display {
   font-family: var(--font-brand) !important;
   font-size: clamp(3.2rem, 8vw, 6.4rem);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   color: #FFFFFF;
-  font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: block;
