@@ -6,7 +6,7 @@
    - Text on Light: #04030A
    - Button Border/Text on Light: #0784b5
    - Outline buttons ONLY (no filled buttons)
-   - Company Name: Ethnocentric (strictly for 'HYGIA')
+   - Company Name: Proxima Nova (for 'HYGIA')
    - Headings & Titles: Orbitron, ALL CAPS, ~40px, weight 600-700
    - Body: Montserrat, ~17px, weight 600
    - Accent/Monospace/Metrics: Orbitron
@@ -42,7 +42,7 @@
   --border-accent: #0784b5;
 
   /* Typography */
-  --font-brand: 'Ethnocentric', sans-serif;
+  --font-brand: 'Proxima Nova', 'Montserrat', -apple-system, sans-serif;
   --font-title: 'Orbitron', 'Orbitron Local', -apple-system, sans-serif;
   --font-body: 'Montserrat', 'Montserrat Local', -apple-system, sans-serif;
   --font-accent: 'Orbitron', 'Orbitron Local', monospace;
@@ -121,12 +121,12 @@ a {
   transition: var(--transition-fast);
 }
 
-/* THE HYGIA LOGO & TITLE SPECIAL STYLING (EXCLUSIVELY ETHNOCENTRIC) */
+/* THE HYGIA LOGO & TITLE SPECIAL STYLING (PROXIMA NOVA) */
 .hygia-brand {
   font-family: var(--font-brand) !important;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-weight: 800;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -570,8 +570,9 @@ a {
 .hero-brand-display {
   font-family: var(--font-brand) !important;
   font-size: clamp(3.2rem, 8vw, 6.4rem);
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   color: #FFFFFF;
+  font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: block;

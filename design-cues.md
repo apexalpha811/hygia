@@ -1,7 +1,7 @@
 # Hygia Design Cues (pulled from anation.media)
 
 ## Fonts
-- **Company Name font:** Ethnocentric — strictly and ONLY used for the company name, "HYGIA" (matches `fonts for hygia/Ethnocentric/`)
+- **Company Name font:** Proxima Nova — used for the company name, "HYGIA"
 - **Title / heading font:** Orbitron — all headings, titles, subheads, and section headers use Orbitron
 - **Body font:** Montserrat — matches `fonts for hygia/Montserrat/` (use `Montserrat-Regular.ttf`, `Montserrat-Medium.ttf`, weight 600 for body copy per source site)
 - **Secondary/accent font (buttons, metrics, badges):** Orbitron — already in `fonts for hygia/Orbitron/`
@@ -17,7 +17,7 @@
 No pink anywhere in the palette. Do not use pink.
 
 ## Usage Notes
-- Company Name ("HYGIA"): Ethnocentric, uppercase, wide tracking (0.22em)
+- Company Name ("HYGIA"): Proxima Nova, uppercase, bold tracking (0.18em)
 - Headings (h1, h2, h3, h4 equivalent): Orbitron, ~40px (for h2), weight 600–700, ALL CAPS, white on dark
 - Body paragraphs: Montserrat, ~17px, weight 600
 - Accent/button/highlight color: `#0784b5` / `#0ca0dc`
