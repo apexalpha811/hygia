@@ -2,16 +2,19 @@
    HYGIA COMMERCIAL FACILITY SERVICES - INTERACTIVE ENGINE
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initHeader();
-  initCalculator();
-  initServiceTabs();
-  initChecklistTabs();
-  initCitySearch();
-  initFaqAccordion();
-  initModals();
-  initDeviceAdvisory();
-});
+// ponytail: guarded so the pricing model can be required in node for tools/calc-check.js
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initHeader();
+    initCalculator();
+    initServiceTabs();
+    initChecklistTabs();
+    initCitySearch();
+    initFaqAccordion();
+    initModals();
+    initDeviceAdvisory();
+  });
+}
 
 /* --------------------------------------------------------------------------
    1. Sticky Header & Mobile Nav
@@ -49,6 +52,64 @@ function initHeader() {
 /* --------------------------------------------------------------------------
    2. Interactive SOW & Estimate Calculator
    -------------------------------------------------------------------------- */
+/* LA-market cost basis. Every dollar the estimator quotes derives from these five
+   numbers, so re-baselining after a July wage adjustment means editing here only.
+
+   BURDENED_HOURLY: LA janitorial wage plus payroll tax, CA workers comp class 9008
+   (a high-rate class), liability, uniforms and supervision. Roughly 1.45x the wage
+   floor. Verify against actual loaded payroll each July when the LA City / LA County
+   minimum wage CPI adjustment lands.
+   Facilities inside the LA hotel & airport worker wage ordinance carry a materially
+   higher floor and are NOT modeled here; quote those manually. */
+const PRICING = {
+  BURDENED_HOURLY: 28.00,   // fully loaded $/labor hour
+  SUPPLIES_UPLIFT: 1.06,    // consumables, chemicals, liners, equipment amortization
+  MARGIN_MULTIPLIER: 1.38,  // ~28% target gross margin
+  VISITS_PER_MONTH: 4.333,  // weeks per month
+  MIN_VISIT_HOURS: 1.5,     // no crew is dispatched for less; travel + setup + restrooms
+  PORTER_HOURS_PER_MONTH: 173.4 // dedicated 8 hr/day porter, 5 days/wk
+};
+
+/* Pure pricing model. Kept free of DOM access so tools/calc-check.js can assert on it. */
+function estimateFacility({ sqft, sqftPerHour, nightsPerWeek, soilFactor, porter, addonPerSqft }) {
+  // Larger footprints clean faster per sq ft: less travel and setup amortized over more
+  // area, and ride-on equipment becomes viable. Capped at a 25% gain.
+  const effectiveRate = sqftPerHour * (1 + Math.min(0.25, sqft / 600000));
+
+  const hoursPerVisit = Math.max(
+    PRICING.MIN_VISIT_HOURS,
+    (sqft / effectiveRate) * soilFactor
+  );
+  const visitsPerMonth = nightsPerWeek * PRICING.VISITS_PER_MONTH;
+  const routineHours = hoursPerVisit * visitsPerMonth;
+
+  // A day porter is a dedicated body, so its cost is flat and independent of footprint.
+  const porterHours = porter ? PRICING.PORTER_HOURS_PER_MONTH : 0;
+  const laborHours = routineHours + porterHours;
+
+  const routinePrice =
+    laborHours * PRICING.BURDENED_HOURLY * PRICING.SUPPLIES_UPLIFT * PRICING.MARGIN_MULTIPLIER;
+
+  // Periodic specialty work scales with area; each add-on carries its own mobilization floor.
+  const addonPrice = addonPerSqft.reduce(
+    (sum, a) => sum + Math.max(a.min, sqft * a.rate),
+    0
+  );
+
+  // Size the crew so a shift lands near six hours, and hard-cap it at eight: California
+  // pays daily overtime past eight, so a long solo shift is a cost trap, not a saving.
+  // Lean schedules carry a soil penalty that can push a single body over the line.
+  const nightCrew = Math.max(1, Math.round(hoursPerVisit / 6), Math.ceil(hoursPerVisit / 8));
+
+  return {
+    monthly: Math.round(routinePrice + addonPrice),
+    laborHours: Math.round(laborHours),
+    hoursPerVisit,
+    hoursPerPerson: hoursPerVisit / nightCrew,
+    crew: nightCrew + (porter ? 1 : 0) // the porter is a separate assigned body
+  };
+}
+
 function initCalculator() {
   const sqftSlider = document.getElementById('calc-sqft-slider');
   const sqftDisplay = document.getElementById('calc-sqft-display');
@@ -66,54 +127,40 @@ function initCalculator() {
     const sqft = parseInt(sqftSlider.value, 10);
     sqftDisplay.textContent = sqft.toLocaleString() + ' SQ FT';
 
-    // Facility multiplier
-    let facilityFactor = 1.0;
+    // Production rate: how many sq ft one specialist cleans per hour in this facility type.
     const selectedFacility = document.querySelector('input[name="facility-type"]:checked');
-    if (selectedFacility) {
-      facilityFactor = parseFloat(selectedFacility.dataset.factor || '1.0');
-    }
+    const sqftPerHour = parseFloat(selectedFacility?.dataset.rate || '3500');
 
-    // Frequency multiplier
-    let frequencyFactor = 1.0;
-    let visitsLabel = '5 Nights / Wk';
+    // Frequency drives visit count; soil factor captures the load that accumulates
+    // between visits, so each visit on a 2x schedule runs longer than one on a 5x.
     const selectedFreq = document.querySelector('input[name="frequency"]:checked');
-    if (selectedFreq) {
-      frequencyFactor = parseFloat(selectedFreq.dataset.factor || '1.0');
-      visitsLabel = selectedFreq.dataset.label || '5 Nights / Wk';
-    }
+    const nightsPerWeek = parseFloat(selectedFreq?.dataset.nights || '5');
+    const soilFactor = parseFloat(selectedFreq?.dataset.soil || '1.0');
+    const porter = selectedFreq?.dataset.porter === 'true';
+    const visitsLabel = selectedFreq?.dataset.label || '5 Nights / Wk';
 
-    // Addons cost
-    let addonMonthlyTotal = 0;
+    const addonPerSqft = [];
     addonInputs.forEach(input => {
       if (input.checked) {
-        addonMonthlyTotal += parseFloat(input.dataset.monthly || '0');
+        addonPerSqft.push({
+          rate: parseFloat(input.dataset.persqft || '0'),
+          min: parseFloat(input.dataset.min || '0')
+        });
       }
     });
 
-    // Base janitorial calculation model (commercial benchmarking)
-    // Baseline: ~$0.09 - $0.14 per sq ft monthly for routine 5x commercial
-    let baseRate = sqft * 0.095 * facilityFactor * frequencyFactor;
-    if (sqft < 5000) {
-      baseRate = Math.max(550, baseRate);
-    }
-    const totalEstimate = Math.round(baseRate + addonMonthlyTotal);
-    const lowEstimate = Math.round(totalEstimate * 0.92);
-    const highEstimate = Math.round(totalEstimate * 1.12);
+    const est = estimateFacility({
+      sqft, sqftPerHour, nightsPerWeek, soilFactor, porter, addonPerSqft
+    });
 
-    // Crew sizing calculation
-    let crew = 1;
-    if (sqft > 120000) crew = 6;
-    else if (sqft > 75000) crew = 5;
-    else if (sqft > 45000) crew = 4;
-    else if (sqft > 25000) crew = 3;
-    else if (sqft > 10000) crew = 2;
-
-    const estHoursPerVisit = Math.round((sqft / 3800) * facilityFactor * 10) / 10;
+    const lowEstimate = Math.round(est.monthly * 0.92);
+    const highEstimate = Math.round(est.monthly * 1.12);
+    const shiftHours = Math.round(est.hoursPerPerson * 10) / 10;
 
     rateDisplay.textContent = `$${lowEstimate.toLocaleString()} – $${highEstimate.toLocaleString()}`;
-    crewDisplay.textContent = `${crew} Assigned Specialist${crew > 1 ? 's' : ''}`;
+    crewDisplay.textContent = `${est.crew} Assigned Specialist${est.crew > 1 ? 's' : ''}`;
     visitsDisplay.textContent = visitsLabel;
-    hoursDisplay.textContent = `~${Math.max(1.5, estHoursPerVisit)} Hrs / Shift`;
+    hoursDisplay.textContent = `~${shiftHours} Hrs / Person`;
   }
 
   sqftSlider.addEventListener('input', calculateEstimate);
@@ -122,6 +169,10 @@ function initCalculator() {
   addonInputs.forEach(i => i.addEventListener('change', calculateEstimate));
 
   calculateEstimate();
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { estimateFacility, PRICING };
 }
 
 /* --------------------------------------------------------------------------

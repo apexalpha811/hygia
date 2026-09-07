@@ -52,13 +52,21 @@
 </head>
 <body>
 
+  <!-- HYGIA wordmark, outlined from Ethnocentric Bold. Defined once, referenced with <use>.
+       fill="currentColor" means CSS `color` recolors every instance. -->
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <symbol id="hygia-wordmark" viewBox="64 -681 4436 681">
+      <path fill="currentColor" d="M896.0 0.0H665.0V-248.0H296.0V0.0H64.0V-669.0H296.0V-441.0H665.0V-669.0H896.0ZM1606.0 0.0H1374.0V-216.0L969.0 -669.0H1266.0L1417.0 -486.0Q1437.0 -462.0 1459.5 -432.5Q1482.0 -403.0 1492.0 -386.0Q1503.0 -405.0 1523.5 -433.5Q1544.0 -462.0 1564.0 -486.0L1708.0 -669.0H1998.0L1606.0 -215.0ZM2929.0 0.0H2456.0Q2368.0 0.0 2293.0 -25.5Q2218.0 -51.0 2163.5 -97.5Q2109.0 -144.0 2078.5 -206.0Q2048.0 -268.0 2048.0 -341.0Q2048.0 -439.0 2101.0 -513.0Q2154.0 -587.0 2246.0 -628.0Q2338.0 -669.0 2456.0 -669.0H2947.0L2797.0 -474.0H2456.0Q2406.0 -474.0 2366.0 -455.5Q2326.0 -437.0 2302.5 -404.5Q2279.0 -372.0 2279.0 -331.0Q2279.0 -268.0 2328.5 -230.0Q2378.0 -192.0 2456.0 -192.0H2699.0V-260.0H2363.0L2502.0 -427.0H2929.0ZM3281.0 0.0H3050.0V-669.0H3281.0ZM4500.0 0.0H3709.0L3849.0 -192.0H3999.0Q4023.0 -192.0 4048.5 -192.0Q4074.0 -192.0 4090.0 -190.0Q4082.0 -198.0 4068.5 -217.5Q4055.0 -237.0 4044.0 -253.0L3932.0 -416.0L3633.0 0.0H3359.0L3787.0 -596.0Q3811.0 -630.0 3846.5 -655.5Q3882.0 -681.0 3936.0 -681.0Q3989.0 -681.0 4024.0 -656.5Q4059.0 -632.0 4084.0 -596.0Z"/>
+    </symbol>
+  </svg>
+
   <!-- ========================================================================
        SITE HEADER & NAVIGATION
        ======================================================================== -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="#" class="brand-link" aria-label="HYGIA Commercial Facility Services">
-        <span class="hygia-brand">HYGIA<span class="dot"></span></span>
+        <span class="hygia-brand"><svg class="hygia-logo" role="img" aria-label="HYGIA"><use href="#hygia-wordmark"/></svg><span class="dot"></span></span>
         <span class="brand-sub">FACILITY SERVICES</span>
       </a>
 
@@ -107,7 +115,7 @@
         100% Commercial Only &bull; Dedicated Assigned Crews &bull; Zero Subcontractors
       </div>
 
-      <span class="hero-brand-display">HYGIA</span>
+      <svg class="hero-brand-display" role="img" aria-label="HYGIA"><use href="#hygia-wordmark"/></svg>
       <h1 class="hero-headline">NEXT-GENERATION COMMERCIAL JANITORIAL &amp; FACILITY HYGIENE</h1>
 
       <p class="hero-lead">
@@ -560,28 +568,31 @@
                 <span>01. Facility Category</span>
               </label>
               <div class="pill-selectors">
+                <!-- data-rate: sq ft one specialist cleans per labor hour in this facility type.
+                     Medical is slowed by red-bag handling, bloodborne pathogen protocol and
+                     terminal-clean procedure; warehouse is fast open floor on ride-on equipment. -->
                 <label class="pill-option">
-                  <input type="radio" name="facility-type" data-factor="1.0" checked>
+                  <input type="radio" name="facility-type" data-rate="3500" checked>
                   <span>Corporate Office</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="facility-type" data-factor="1.35">
+                  <input type="radio" name="facility-type" data-rate="1900">
                   <span>Medical / Clinic</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="facility-type" data-factor="1.05">
+                  <input type="radio" name="facility-type" data-rate="3000">
                   <span>Multi-Tenant Bldg</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="facility-type" data-factor="0.9">
+                  <input type="radio" name="facility-type" data-rate="6000">
                   <span>Industrial / Whse</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="facility-type" data-factor="1.15">
+                  <input type="radio" name="facility-type" data-rate="2800">
                   <span>Dealership</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="facility-type" data-factor="1.1">
+                  <input type="radio" name="facility-type" data-rate="2600">
                   <span>School / Campus</span>
                 </label>
               </div>
@@ -604,24 +615,26 @@
                 <span>03. Cleaning Frequency &amp; Schedule</span>
               </label>
               <div class="pill-selectors">
+                <!-- data-soil: soil accumulates between visits, so a single visit on a lean
+                     schedule takes longer than one on a nightly schedule. -->
                 <label class="pill-option">
-                  <input type="radio" name="frequency" data-factor="0.55" data-label="2 Nights / Wk">
+                  <input type="radio" name="frequency" data-nights="2" data-soil="1.25" data-label="2 Nights / Wk">
                   <span>2x / Week</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="frequency" data-factor="0.75" data-label="3 Nights / Wk">
+                  <input type="radio" name="frequency" data-nights="3" data-soil="1.15" data-label="3 Nights / Wk">
                   <span>3x / Week</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="frequency" data-factor="1.0" data-label="5 Nights / Wk" checked>
+                  <input type="radio" name="frequency" data-nights="5" data-soil="1.0" data-label="5 Nights / Wk" checked>
                   <span>5x / Week (Standard)</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="frequency" data-factor="1.35" data-label="7 Nights / Wk">
+                  <input type="radio" name="frequency" data-nights="7" data-soil="0.95" data-label="7 Nights / Wk">
                   <span>7x / Week (24/7)</span>
                 </label>
                 <label class="pill-option">
-                  <input type="radio" name="frequency" data-factor="1.85" data-label="Day Porter + Nightly">
+                  <input type="radio" name="frequency" data-nights="5" data-soil="1.0" data-porter="true" data-label="Day Porter + Nightly">
                   <span>Day Porter + Night</span>
                 </label>
               </div>
@@ -633,20 +646,22 @@
                 <span>04. Periodic Specialty Add-Ons (Optional)</span>
               </label>
               <div class="addons-grid">
+                <!-- data-persqft: monthly amortized $/sq ft. data-min: mobilization floor,
+                     since a crew, a machine and a truck roll out regardless of footprint. -->
                 <label class="addon-checkbox">
-                  <input type="checkbox" class="addon-input" data-monthly="380">
+                  <input type="checkbox" class="addon-input" data-persqft="0.050" data-min="325">
                   <span>Quarterly Hard Floor Wax / Scrub</span>
                 </label>
                 <label class="addon-checkbox">
-                  <input type="checkbox" class="addon-input" data-monthly="260">
+                  <input type="checkbox" class="addon-input" data-persqft="0.012" data-min="180">
                   <span>Monthly Exterior Window Detail</span>
                 </label>
                 <label class="addon-checkbox">
-                  <input type="checkbox" class="addon-input" data-monthly="320">
+                  <input type="checkbox" class="addon-input" data-persqft="0.014" data-min="250">
                   <span>Hot-Water Pressure Wash (Loading Docks)</span>
                 </label>
                 <label class="addon-checkbox">
-                  <input type="checkbox" class="addon-input" data-monthly="450">
+                  <input type="checkbox" class="addon-input" data-persqft="0.045" data-min="300">
                   <span>Electrostatic Fogging Disinfection</span>
                 </label>
               </div>
@@ -660,22 +675,22 @@
 
               <div class="estimate-display-box">
                 <div class="estimate-label">ESTIMATED MONTHLY INVESTMENT</div>
-                <div class="estimate-number" id="calc-rate-display">$2,185 – $2,660</div>
+                <div class="estimate-number" id="calc-rate-display">$5,598 – $6,815</div>
                 <p class="estimate-disclaimer">*Subject to in-person walkthrough &amp; final scope verification</p>
               </div>
 
               <ul class="summary-specs-list">
                 <li>
                   <span>Assigned Personnel</span>
-                  <span id="calc-crew-display">2 Assigned Specialists</span>
+                  <span id="calc-crew-display">1 Assigned Specialist</span>
                 </li>
                 <li>
                   <span>Service Schedule</span>
                   <span id="calc-visits-display">5 Nights / Wk</span>
                 </li>
                 <li>
-                  <span>Estimated Shift Duration</span>
-                  <span id="calc-hours-display">~6.5 Hrs / Shift</span>
+                  <span>Est. Shift Duration (Per Person)</span>
+                  <span id="calc-hours-display">~6.9 Hrs / Person</span>
                 </li>
                 <li>
                   <span>Supervisor Audit Cadence</span>
@@ -683,7 +698,7 @@
                 </li>
                 <li>
                   <span>Emergency Dispatch SLA</span>
-                  <span style="color: #00FF88;">Under 5 Minutes</span>
+                  <span style="color: #00FF88;">Under 5 Min Acknowledgment</span>
                 </li>
               </ul>
             </div>
@@ -1161,7 +1176,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <span class="hygia-brand">HYGIA<span class="dot"></span></span>
+          <span class="hygia-brand"><svg class="hygia-logo" role="img" aria-label="HYGIA"><use href="#hygia-wordmark"/></svg><span class="dot"></span></span>
           <p class="footer-desc">
             Next-generation commercial facility services, janitorial excellence, and hospital-grade disinfection engineered for high-performance enterprises across Southern California.
           </p>
