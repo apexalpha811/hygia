@@ -132,6 +132,16 @@ a {
   gap: 0.4rem;
 }
 
+/* The wordmark is sized off the surrounding font-size so the existing brand rules
+   below still drive it. 0.681em is the cap height of Ethnocentric at 1em. */
+.hygia-logo {
+  height: 0.681em;
+  width: auto;
+  aspect-ratio: 4436 / 681;
+  display: block;
+  flex: none;
+}
+
 .hygia-brand .dot {
   width: 9px;
   height: 9px;
@@ -568,15 +578,15 @@ a {
 }
 
 .hero-brand-display {
-  font-family: var(--font-brand) !important;
   font-size: clamp(3.2rem, 8vw, 6.4rem);
-  letter-spacing: 0.22em;
   color: #FFFFFF;
-  text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: block;
-  text-shadow: 0 0 40px rgba(7, 132, 181, 0.7);
-  line-height: 1.05;
+  height: 0.681em;
+  width: auto;
+  aspect-ratio: 4436 / 681;
+  /* drop-shadow, not text-shadow: the mark is now vector art, not text */
+  filter: drop-shadow(0 0 40px rgba(7, 132, 181, 0.7));
 }
 
 .hero-headline {
