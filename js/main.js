@@ -91,18 +91,30 @@ function estimateFacility({ sqft, sqftPerHour, nightsPerWeek, soilFactor, porter
     laborHours * PRICING.BURDENED_HOURLY * PRICING.SUPPLIES_UPLIFT * PRICING.MARGIN_MULTIPLIER;
 
   // Periodic specialty work scales with area; each add-on carries its own mobilization floor.
-  const addonPrice = addonPerSqft.reduce(
-    (sum, a) => sum + Math.max(a.min, sqft * a.rate),
-    0
-  );
+  // cadence is how many times a month the charge lands: a plain amortized add-on is 1, and
+  // "schedule" means once per cleaning visit, riding the frequency chosen in step 03.
+  // Fogging is deliberately NOT on "schedule": at nightly frequency a per-visit sq-ft rate
+  // outruns the entire routine contract several times over.
+  // `rate` is the older single-value shape and still works; low/high override it.
+  const addonTotal = (end) => addonPerSqft.reduce((sum, a) => {
+    const rate = a[end] !== undefined ? a[end] : a.rate;
+    const times = a.cadence === 'schedule' ? visitsPerMonth : (a.cadence || 1);
+    return sum + Math.max(a.min, sqft * rate) * times;
+  }, 0);
+  const addonLow = addonTotal('low');
+  const addonHigh = addonTotal('high');
 
   // Size the crew so a shift lands near six hours, and hard-cap it at eight: California
   // pays daily overtime past eight, so a long solo shift is a cost trap, not a saving.
   // Lean schedules carry a soil penalty that can push a single body over the line.
   const nightCrew = Math.max(1, Math.round(hoursPerVisit / 6), Math.ceil(hoursPerVisit / 8));
 
+  // The +/- band belongs to the labor estimate, which is what actually varies with a
+  // walkthrough. An add-on quoted as a range carries its own ends instead of inheriting it.
   return {
-    monthly: Math.round(routinePrice + addonPrice),
+    monthly: Math.round(routinePrice + (addonLow + addonHigh) / 2),
+    monthlyLow: Math.round(routinePrice * 0.92 + addonLow),
+    monthlyHigh: Math.round(routinePrice * 1.12 + addonHigh),
     laborHours: Math.round(laborHours),
     hoursPerVisit,
     hoursPerPerson: hoursPerVisit / nightCrew,
@@ -142,9 +154,14 @@ function initCalculator() {
     const addonPerSqft = [];
     addonInputs.forEach(input => {
       if (input.checked) {
+        const flat = input.dataset.persqft || '0';
         addonPerSqft.push({
-          rate: parseFloat(input.dataset.persqft || '0'),
-          min: parseFloat(input.dataset.min || '0')
+          low: parseFloat(input.dataset.persqftLow || flat),
+          high: parseFloat(input.dataset.persqftHigh || flat),
+          min: parseFloat(input.dataset.min || '0'),
+          cadence: input.dataset.cadence === 'schedule'
+            ? 'schedule'
+            : parseFloat(input.dataset.cadence || '1')
         });
       }
     });
@@ -153,8 +170,8 @@ function initCalculator() {
       sqft, sqftPerHour, nightsPerWeek, soilFactor, porter, addonPerSqft
     });
 
-    const lowEstimate = Math.round(est.monthly * 0.92);
-    const highEstimate = Math.round(est.monthly * 1.12);
+    const lowEstimate = est.monthlyLow;
+    const highEstimate = est.monthlyHigh;
     const shiftHours = Math.round(est.hoursPerPerson * 10) / 10;
 
     rateDisplay.textContent = `$${lowEstimate.toLocaleString()} – $${highEstimate.toLocaleString()}`;

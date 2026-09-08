@@ -83,6 +83,43 @@ assert.strictEqual(
   'porter not counted as assigned personnel'
 );
 
+// 8. Electrostatic fogging: a per-visit sq-ft range with a mobilization floor.
+//    Quoted at $0.08-$0.15/sq ft per visit, $150 minimum, charged once a month.
+const FOG = { low: 0.08, high: 0.15, min: 150, cadence: 1 };
+{
+  const bare = estimateFacility(base({ sqft: 20000 }));
+  const fog  = estimateFacility(base({ sqft: 20000, addonPerSqft: [FOG] }));
+  assert.strictEqual(fog.monthlyLow - bare.monthlyLow, 20000 * 0.08,
+    'low end must add exactly the low fogging rate, not a synthetic band');
+  assert.strictEqual(fog.monthlyHigh - bare.monthlyHigh, 20000 * 0.15,
+    'high end must add exactly the high fogging rate');
+
+  // The $150 floor covers crew, machine and truck on a footprint too small to bill.
+  const tinyBare = estimateFacility(base({ sqft: 800 }));
+  const tinyFog  = estimateFacility(base({ sqft: 800, addonPerSqft: [FOG] }));
+  assert.strictEqual(tinyFog.monthlyLow - tinyBare.monthlyLow, 150,
+    '800 sqft x $0.08 = $64, so the floor must apply');
+
+  // cadence 1 means monthly, so cleaning frequency must not change what fogging costs.
+  const d = (n) => estimateFacility(base({ sqft: 20000, nightsPerWeek: n, addonPerSqft: [FOG] })).monthlyHigh
+                 - estimateFacility(base({ sqft: 20000, nightsPerWeek: n })).monthlyHigh;
+  assert.strictEqual(d(2), d(7), 'a monthly add-on must not ride the cleaning schedule');
+
+  // cadence "schedule" still works. It is left unused for fogging on purpose: billing a
+  // per-visit sq-ft rate nightly outruns the entire routine contract several times over.
+  const sched = estimateFacility(base({ sqft: 20000, addonPerSqft: [{ ...FOG, cadence: 'schedule' }] }));
+  assert(sched.monthlyHigh > bare.monthlyHigh * 6,
+    'nightly fogging should dwarf the contract, which is why cadence defaults to 1');
+}
+
+// 9. The older single-rate add-on shape keeps working alongside low/high.
+{
+  const bare = estimateFacility(base({ sqft: 30000 }));
+  const legacy = estimateFacility(base({ sqft: 30000, addonPerSqft: [{ rate: 0.05, min: 325 }] }));
+  assert.strictEqual(legacy.monthlyHigh - bare.monthlyHigh, 30000 * 0.05,
+    'a legacy {rate, min} add-on must still price correctly');
+}
+
 console.log('calc-check: all assertions passed');
 
 // Reference table for re-baselining against real bids.

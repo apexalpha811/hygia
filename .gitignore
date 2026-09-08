@@ -11,3 +11,9 @@ scratch/
 # Reference notes (optional - can be kept or ignored)
 # design-cues.md
 # *_scraped.md
+
+# Pitch deck projects. Each of these gets its own standalone repo, committed from
+# inside the folder. They deliberately do not belong to the main hygia repo.
+airbnb-str/
+commercial-standard/
+wellness-medspa/

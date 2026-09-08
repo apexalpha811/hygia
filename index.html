@@ -647,7 +647,10 @@
               </label>
               <div class="addons-grid">
                 <!-- data-persqft: monthly amortized $/sq ft. data-min: mobilization floor,
-                     since a crew, a machine and a truck roll out regardless of footprint. -->
+                     since a crew, a machine and a truck roll out regardless of footprint.
+                     data-persqft-low/-high: a quoted range instead of a single rate.
+                     data-cadence: times per month the charge lands. A number, or "schedule"
+                     to charge once per cleaning visit (rides step 03). Defaults to 1. -->
                 <label class="addon-checkbox">
                   <input type="checkbox" class="addon-input" data-persqft="0.050" data-min="325">
                   <span>Quarterly Hard Floor Wax / Scrub</span>
@@ -661,8 +664,10 @@
                   <span>Hot-Water Pressure Wash (Loading Docks)</span>
                 </label>
                 <label class="addon-checkbox">
-                  <input type="checkbox" class="addon-input" data-persqft="0.045" data-min="300">
-                  <span>Electrostatic Fogging Disinfection</span>
+                  <!-- $0.08-$0.15/sq ft per visit, $150 floor. cadence="1" = once monthly.
+                       Set cadence="schedule" to charge it on every cleaning visit instead. -->
+                  <input type="checkbox" class="addon-input" data-persqft-low="0.08" data-persqft-high="0.15" data-min="150" data-cadence="1">
+                  <span>Electrostatic Fogging Disinfection (Monthly)</span>
                 </label>
               </div>
             </div>
